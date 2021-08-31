@@ -2,8 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const dayjs = require('dayjs')
 
 const User = require('../models/User')
+const Project = require('../models/Project')
+const Bin = require('../models/Bin')
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost:27017/updatecode', {
@@ -30,16 +34,12 @@ const ifLoggedin = (req, res, next) => {
 
 // LOGIN PAGE
 router.post('/', ifLoggedin, async(req, res) => {
-    console.log(req.body);
     try {
-        const user = await User.find({ username: req.body.username })
-        console.log(user);
-
-        /*
-        bcrypt.compare(req.body.email + req.body.password, user[0].password).then(compare_result => {
+        const user = await User.findOne({ username: req.body.username })
+        bcrypt.compare(req.body.username + req.body.password, user.password).then(compare_result => {
             if (compare_result === true) {
                 req.session.isLoggedIn = true;
-                req.session.user_id = user[0].user_id;
+                req.session.username = user.username;
                 res.redirect('/');
             } else {
                 res.redirect('/');
@@ -47,7 +47,6 @@ router.post('/', ifLoggedin, async(req, res) => {
         }).catch(err => {
             if (err) throw err;
         });
-        */
     } catch (error) {
         res.redirect('/');
     }
@@ -108,19 +107,65 @@ router.get('/recoverpw', function(req, res, next) {
 /* GET home page. */
 router.get('/', ifNotLoggedin, async function(req, res, next) {
     try {
-        const dbCustomer = await Customer.findOne({ user_id: req.session.user_id })
-        res.render('user_home', {
-            user_id: req.session.user_id,
-            branch: dbCustomer.branch
-        });
+        res.render('index')
+            /*
+            const dbCustomer = await Customer.findOne({ user_id: req.session.user_id })
+            res.render('user_home', {
+                user_id: req.session.user_id,
+                branch: dbCustomer.branch
+            });
+            */
     } catch (error) {
+        /*
         res.render('user_home', {
             user_id: req.session.user_id,
             branch: 0
         });
+        */
     }
+
 });
 
+
+
+
+router.post('/newproject', ifNotLoggedin, async(req, res) => {
+    const myobj = new Project({
+        username: req.session.username,
+        projectname: req.body.projectname
+    });
+
+    await myobj.save()
+
+    res.redirect('/')
+});
+
+
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './public/code_bin/')
+    },
+    filename: function(req, file, cb) {
+        cb(null, `${new Date().getTime()}` + '.bin')
+    }
+})
+
+const upload = multer({ storage: storage })
+router.post('/uploadfilecode', upload.single('file'), async function(req, res, next) {
+
+    const bin = new Bin({
+        username: req.session.username,
+        projectname: req.body.projectname,
+        filename: req.file.filename,
+        date: dayjs(new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" })).format('YYYY-MM-DD H:m:s'),
+        description: req.body.description,
+    });
+
+    await bin.save()
+
+    res.redirect('/')
+})
 
 
 module.exports = router;

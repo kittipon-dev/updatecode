@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>User profile with friends and chat - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container bootstrap snippets bootdeys">
+        <div class="row" id="user-profile">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+                <div class="main-box clearfix">
+                    <h2>Kittipon</h2>
+                    <div class="profile-status">
+                        <i class="fa fa-check-circle"></i> Premium
+                    </div>
+
+
+                    <div class="profile-details">
+                        <ul class="fa-ul">
+                            <li><i class="fa-li fa fa-truck"></i>Orders: <span>456</span></li>
+                            <li><i class="fa-li fa fa-tasks"></i>Tasks done: <span>1024</span></li>
+                        </ul>
+                    </div>
+
+
+                    <div class="profile-message-btn center-block text-center">
+                        <a href="/logout" class="btn btn-danger">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-8 col-sm-8">
+                <div class="main-box clearfix">
+                    <div class="profile-header">
+                        <button type="button" class="btn btn-primary edit-profile" data-toggle="modal" data-target="#exampleModalCenter2">
+                            <i class="fa fa-pencil-square fa-lg"></i> Add Project
+                        </button>
+                    </div>
+
+                    <div class="tabs-wrapper profile-tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab-activity" data-toggle="tab">โปรเจค 1</a></li>
+                            <li><a href="#tab-friends" data-toggle="tab">โปรเจค 2</a></li>
+                            <li><a href="#tab-chat" data-toggle="tab">โปรเจค 3</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="tab-activity">
+
+                                <div class="table-responsive" style="min-height: 300px;">
+
+                                    <div class=" profile-user-info">
+                                        <div class="col-sm-8">
+                                            <div class="profile-user-details clearfix">
+                                                <div class="profile-user-details-label">
+                                                    token
+                                                </div>
+                                                <div class="profile-user-details-value">
+                                                    011 223 344 556 677
+                                                </div>
+                                            </div>
+                                            <div class="profile-user-details clearfix">
+                                                <div class="profile-user-details-label">
+                                                    device
+                                                </div>
+                                                <div class="profile-user-details-value">
+                                                    2
+                                                </div>
+                                            </div>
+                                            <div class="profile-user-details clearfix">
+                                                <div class="profile-user-details-label">
+                                                    done update
+                                                </div>
+                                                <div class="profile-user-details-value">
+                                                    2
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Add Code
+                                    </button>
+
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <i class="fa fa-file-code-o"></i>
+                                                </td>
+                                                <td class="text-center">
+                                                    0.0.1
+                                                </td>
+                                                <td>
+                                                    รายละเอียด เพิ่มเติม
+                                                </td>
+                                                <td>
+                                                    2014/08/08 12:08
+                                                </td>
+                                                <td>
+                                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                </td>
+                                                <td style="float: right;">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
+                                                                aria-hidden="true"></i></button>
+                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
+                                                            <li><a class="nav-link" href="#">Use</a></li>
+                                                            <li><a class="nav-link" href="#">Edit</a></li>
+                                                            <li><a class="nav-link" href="#">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td class="text-center">
+                                                    <i class="fa fa-file-code-o"></i>
+                                                </td>
+                                                <td class="text-center">
+                                                    0.0.1
+                                                </td>
+                                                <td>
+                                                    รายละเอียด เพิ่มเติม
+                                                </td>
+                                                <td>
+                                                    2014/08/08 12:08
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td style="float: right;">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
+                                                                aria-hidden="true"></i></button>
+                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
+                                                            <li><a class="nav-link" href="#">Use</a></li>
+                                                            <li><a class="nav-link" href="#">Edit</a></li>
+                                                            <li><a class="nav-link" href="#">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="text-center">
+                                                    <i class="fa fa-file-code-o"></i>
+                                                </td>
+                                                <td class="text-center">
+                                                    0.0.1
+                                                </td>
+                                                <td>
+                                                    รายละเอียด เพิ่มเติม
+                                                </td>
+                                                <td>
+                                                    2014/08/08 12:08
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td style="float: right;">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
+                                                                aria-hidden="true"></i></button>
+                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
+                                                            <li><a class="nav-link" href="#">Use</a></li>
+                                                            <li><a class="nav-link" href="#">Edit</a></li>
+                                                            <li><a class="nav-link" href="#">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="text-center">
+                                                    <i class="fa fa-file-code-o"></i>
+                                                </td>
+                                                <td class="text-center">
+                                                    0.0.1
+                                                </td>
+                                                <td>
+                                                    รายละเอียด เพิ่มเติม
+                                                </td>
+                                                <td>
+                                                    2014/08/08 12:08
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td style="float: right;">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
+                                                                aria-hidden="true"></i></button>
+                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
+                                                            <li><a class="nav-link" href="#">Use</a></li>
+                                                            <li><a class="nav-link" href="#">Edit</a></li>
+                                                            <li><a class="nav-link" href="#">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="text-center">
+                                                    <i class="fa fa-file-code-o"></i>
+                                                </td>
+                                                <td class="text-center">
+                                                    0.0.1
+                                                </td>
+                                                <td>
+                                                    รายละเอียด เพิ่มเติม
+                                                </td>
+                                                <td>
+                                                    2014/08/08 12:08
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td style="float: right;">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
+                                                                aria-hidden="true"></i></button>
+                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
+                                                            <li><a class="nav-link" href="#">Use</a></li>
+                                                            <li><a class="nav-link" href="#">Edit</a></li>
+                                                            <li><a class="nav-link" href="#">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body" style="min-height: 250px">
+                    <div>
+                        <form action="/uploadfilecode" method="post" enctype="multipart/form-data">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"> </span>
+                                <input type="text" class="form-control" name="ver" placeholder="Version 0.0.1 " required>
+                            </div>
+                            <br>
+                            <textarea class="form-control" rows="3" placeholder="Description" name="description" required></textarea>
+                            <br>
+                            <input type="file" style="float: left; width: 100%;" class="custom-file-input" name="file" id="file" required>
+                            <div style="float: right;">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <form action="/newproject" method="post">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="projectname" placeholder="Name Project" width="">
+                            </div>
+                            <div class="col-sm-4">
+                                <div>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
