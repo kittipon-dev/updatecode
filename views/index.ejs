@@ -12,6 +12,57 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="/style.css">
+    <script>
+        let project = JSON.parse('<%-JSON.stringify(project)%>')
+        let bin = JSON.parse('<%-JSON.stringify(bin)%>')
+        let user = JSON.parse('<%-JSON.stringify(user)%>')
+        bin.reverse()
+
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+    </script>
+
+    <script>
+        function list_bin(element) {
+            var widget = `
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <i class="fa fa-file-code-o"></i>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            ${element.vername}
+                                                        </td>
+                                                        <td>
+                                                            ${element.description}
+                                                        </td>
+                                                        <td>
+                                                            ${element.date}
+                                                        </td>
+                                                        <td>
+                                                            ${element.status=="use"?'<i class="fa fa-check-circle"></i>':''}
+                                                        </td>
+                                                        <td style="float: right;">
+                                                            <div class="btn-group">
+                                                                <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"aria-hidden="true"></i></button>
+                                                                <ul class="dropdown-menu w-100 dropdown-menu-right">
+                                                                    <li><a class="nav-link" href="/bin_use?bin=${element._id}&project=${element.project_id}">Use</a></li>
+                                                                    <li><a class="nav-link" href="/bin_del?bin=${element._id}">Delete</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                        `
+            return widget
+        }
+
+
+        //console.log(list(bin[0]));
+    </script>
+
 </head>
 
 <body>
@@ -51,215 +102,93 @@
                     </div>
 
                     <div class="tabs-wrapper profile-tabs">
+
+                        <script>
+                            function saveA(id) {
+                                document.cookie = `a=${id};`
+                            }
+                        </script>
+
+
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab-activity" data-toggle="tab">โปรเจค 1</a></li>
-                            <li><a href="#tab-friends" data-toggle="tab">โปรเจค 2</a></li>
-                            <li><a href="#tab-chat" data-toggle="tab">โปรเจค 3</a></li>
+                            <script>
+                                for (let index = 0; index < project.length; index++) {
+                                    const e = project[index];
+                                    document.write(`
+                                        <li class="${getCookie('a')==e._id?'active':'' } a"><a href="#${e._id}" data-toggle="tab" onclick="saveA('${e._id}') ">${e.projectname}</a></li>
+                                    `)
+                                }
+                            </script>
                         </ul>
 
+
+
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tab-activity">
-
-                                <div class="table-responsive" style="min-height: 300px;">
-
-                                    <div class=" profile-user-info">
-                                        <div class="col-sm-8">
-                                            <div class="profile-user-details clearfix">
-                                                <div class="profile-user-details-label">
-                                                    token
-                                                </div>
-                                                <div class="profile-user-details-value">
-                                                    011 223 344 556 677
+                            <script>
+                                for (let index = 0; index < project.length; index++) {
+                                    const e = project[index];
+                                    document.write(`
+                                    <div class="tab-pane fade in ${getCookie('a')==e._id?'active':'' } " id="${e._id}">
+                                        <div class="table-responsive" style="min-height: 300px;">
+                                            <div class=" profile-user-info">
+                                                <div class="col-sm-8">
+                                                    <div class="profile-user-details clearfix">
+                                                        <div class="profile-user-details-label">
+                                                            token
+                                                        </div>
+                                                        <div class="profile-user-details-value">
+                                                            ${e._id}
+                                                        </div>
+                                                    </div>
+                                                    <div class="profile-user-details clearfix">
+                                                        <div class="profile-user-details-label">
+                                                            ????
+                                                        </div>
+                                                        <div class="profile-user-details-value">
+                                                            2
+                                                        </div>
+                                                    </div>
+                                                    <div class="profile-user-details clearfix">
+                                                        <div class="profile-user-details-label">
+                                                            ????
+                                                        </div>
+                                                        <div class="profile-user-details-value">
+                                                            2
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="profile-user-details clearfix">
-                                                <div class="profile-user-details-label">
-                                                    device
-                                                </div>
-                                                <div class="profile-user-details-value">
-                                                    2
-                                                </div>
-                                            </div>
-                                            <div class="profile-user-details clearfix">
-                                                <div class="profile-user-details-label">
-                                                    done update
-                                                </div>
-                                                <div class="profile-user-details-value">
-                                                    2
-                                                </div>
-                                            </div>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="${e._id}">
+                                                Add Code
+                                            </button>
+                                            <table class="table">
+                                                <tbody id="table_${e._id}"></tbody>
+                                            </table>
                                         </div>
-                                    </div>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Add Code
-                                    </button>
-
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <i class="fa fa-file-code-o"></i>
-                                                </td>
-                                                <td class="text-center">
-                                                    0.0.1
-                                                </td>
-                                                <td>
-                                                    รายละเอียด เพิ่มเติม
-                                                </td>
-                                                <td>
-                                                    2014/08/08 12:08
-                                                </td>
-                                                <td>
-                                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                                </td>
-                                                <td style="float: right;">
-                                                    <div class="btn-group">
-                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
-                                                            <li><a class="nav-link" href="#">Use</a></li>
-                                                            <li><a class="nav-link" href="#">Edit</a></li>
-                                                            <li><a class="nav-link" href="#">Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td class="text-center">
-                                                    <i class="fa fa-file-code-o"></i>
-                                                </td>
-                                                <td class="text-center">
-                                                    0.0.1
-                                                </td>
-                                                <td>
-                                                    รายละเอียด เพิ่มเติม
-                                                </td>
-                                                <td>
-                                                    2014/08/08 12:08
-                                                </td>
-                                                <td>
-
-                                                </td>
-                                                <td style="float: right;">
-                                                    <div class="btn-group">
-                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
-                                                            <li><a class="nav-link" href="#">Use</a></li>
-                                                            <li><a class="nav-link" href="#">Edit</a></li>
-                                                            <li><a class="nav-link" href="#">Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="text-center">
-                                                    <i class="fa fa-file-code-o"></i>
-                                                </td>
-                                                <td class="text-center">
-                                                    0.0.1
-                                                </td>
-                                                <td>
-                                                    รายละเอียด เพิ่มเติม
-                                                </td>
-                                                <td>
-                                                    2014/08/08 12:08
-                                                </td>
-                                                <td>
-
-                                                </td>
-                                                <td style="float: right;">
-                                                    <div class="btn-group">
-                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
-                                                            <li><a class="nav-link" href="#">Use</a></li>
-                                                            <li><a class="nav-link" href="#">Edit</a></li>
-                                                            <li><a class="nav-link" href="#">Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="text-center">
-                                                    <i class="fa fa-file-code-o"></i>
-                                                </td>
-                                                <td class="text-center">
-                                                    0.0.1
-                                                </td>
-                                                <td>
-                                                    รายละเอียด เพิ่มเติม
-                                                </td>
-                                                <td>
-                                                    2014/08/08 12:08
-                                                </td>
-                                                <td>
-
-                                                </td>
-                                                <td style="float: right;">
-                                                    <div class="btn-group">
-                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
-                                                            <li><a class="nav-link" href="#">Use</a></li>
-                                                            <li><a class="nav-link" href="#">Edit</a></li>
-                                                            <li><a class="nav-link" href="#">Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="text-center">
-                                                    <i class="fa fa-file-code-o"></i>
-                                                </td>
-                                                <td class="text-center">
-                                                    0.0.1
-                                                </td>
-                                                <td>
-                                                    รายละเอียด เพิ่มเติม
-                                                </td>
-                                                <td>
-                                                    2014/08/08 12:08
-                                                </td>
-                                                <td>
-
-                                                </td>
-                                                <td style="float: right;">
-                                                    <div class="btn-group">
-                                                        <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"
-                                                                aria-hidden="true"></i></button>
-                                                        <ul class="dropdown-menu w-100 dropdown-menu-right">
-                                                            <li><a class="nav-link" href="#">Use</a></li>
-                                                            <li><a class="nav-link" href="#">Edit</a></li>
-                                                            <li><a class="nav-link" href="#">Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-
-
+                                    </div>`)
+                                }
+                            </script>
+                            <script>
+                                bin.forEach(e => {
+                                    var elementTable = document.getElementById(`table_${e.project_id}`);
+                                    var row = document.createElement('tr')
+                                    row.innerHTML = list_bin(e)
+                                    elementTable.appendChild(row)
+                                })
+                            </script>
                         </div>
-                    </div>
 
+
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+    <!-- Modal Add Code BIN-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -268,9 +197,10 @@
                 <div class="modal-body" style="min-height: 250px">
                     <div>
                         <form action="/uploadfilecode" method="post" enctype="multipart/form-data">
+                            <input type="hidden" id="projectID" name="project_id">
                             <div class="input-group mb-3">
                                 <span class="input-group-text"> </span>
-                                <input type="text" class="form-control" name="ver" placeholder="Version 0.0.1 " required>
+                                <input type="text" class="form-control" name="vername" placeholder="Version 0.0.1 " required>
                             </div>
                             <br>
                             <textarea class="form-control" rows="3" placeholder="Description" name="description" required></textarea>
@@ -288,10 +218,19 @@
         </div>
     </div>
 
+    <script>
+        $('#exampleModal').on('shown.bs.modal', function(e) {
+            let button = $(e.relatedTarget)
+            let recipient = button.data('whatever')
+            const projectID = document.getElementById('projectID')
+            projectID.value = recipient
+        })
+    </script>
+
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">

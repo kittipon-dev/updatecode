@@ -7,7 +7,8 @@ const binSchema = new Schema({
     vername: String,
     description: String,
     filename: String,
-    date: String
+    date: String,
+    status: String
 });
 
 const binModel = mongoose.model('bin', binSchema);

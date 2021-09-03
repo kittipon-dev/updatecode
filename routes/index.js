@@ -106,15 +106,13 @@ router.get('/recoverpw', function(req, res, next) {
 
 /* GET home page. */
 router.get('/', ifNotLoggedin, async function(req, res, next) {
+
     try {
-        res.render('index')
-            /*
-            const dbCustomer = await Customer.findOne({ user_id: req.session.user_id })
-            res.render('user_home', {
-                user_id: req.session.user_id,
-                branch: dbCustomer.branch
-            });
-            */
+        const project = await Project.find({ username: req.session.username })
+        const bin = await Bin.find({ username: req.session.username })
+        const user = await User.findOne({ username: req.session.username })
+
+        res.render('index', { project: project, bin: bin, user: user })
     } catch (error) {
         /*
         res.render('user_home', {
@@ -153,19 +151,56 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 router.post('/uploadfilecode', upload.single('file'), async function(req, res, next) {
-
     const bin = new Bin({
         username: req.session.username,
-        projectname: req.body.projectname,
+        project_id: req.body.project_id,
+        vername: req.body.vername,
         filename: req.file.filename,
         date: dayjs(new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" })).format('YYYY-MM-DD H:m:s'),
         description: req.body.description,
     });
-
     await bin.save()
-
     res.redirect('/')
 })
+
+
+
+
+router.get('/bin_use', ifNotLoggedin, async(req, res) => {
+    const project = await Project.findByIdAndUpdate(req.query.project, { usecode: req.query.bin })
+
+    const bin = await Bin.findOneAndUpdate({
+        project_id: req.query.project,
+        status: "use"
+    }, { status: "" })
+
+    const binUse = await Bin.findByIdAndUpdate(req.query.bin, { status: "use" })
+
+    res.redirect('/')
+});
+
+router.get('/bin_del', ifNotLoggedin, async(req, res) => {
+    const bin = await Bin.findByIdAndDelete(req.query.bin)
+    res.redirect('/')
+});
+
+
+
+
+
+
+
+router.get('/get_version', async(req, res) => {
+    console.log(req.query);
+    try {
+        const project = await Project.findById(req.query.token)
+        console.log(project);
+        res.send(project.usecode)
+    } catch (error) {
+        res.end(0)
+    }
+});
+
 
 
 module.exports = router;
