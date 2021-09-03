@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const projectSchema = new Schema({
     username: String,
     projectname: String,
-    usecode: String
+    usecode: String,
+    versionname: String
 });
 
 const projectModel = mongoose.model('project', projectSchema);

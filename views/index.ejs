@@ -49,7 +49,7 @@
                                                             <div class="btn-group">
                                                                 <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"aria-hidden="true"></i></button>
                                                                 <ul class="dropdown-menu w-100 dropdown-menu-right">
-                                                                    <li><a class="nav-link" href="/bin_use?bin=${element._id}&project=${element.project_id}">Use</a></li>
+                                                                    <li><a class="nav-link" href="/bin_use?bin=${element._id}&project=${element.project_id}&versionname=${element.vername}">Use</a></li>
                                                                     <li><a class="nav-link" href="/bin_del?bin=${element._id}">Delete</a></li>
                                                                 </ul>
                                                             </div>
@@ -200,7 +200,7 @@
                             <input type="hidden" id="projectID" name="project_id">
                             <div class="input-group mb-3">
                                 <span class="input-group-text"> </span>
-                                <input type="text" class="form-control" name="vername" placeholder="Version 0.0.1 " required>
+                                <input type="text" class="form-control" name="vername" placeholder="ESP ==> String _version = ?" required>
                             </div>
                             <br>
                             <textarea class="form-control" rows="3" placeholder="Description" name="description" required></textarea>
@@ -212,7 +212,6 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>

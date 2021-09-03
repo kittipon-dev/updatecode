@@ -167,15 +167,12 @@ router.post('/uploadfilecode', upload.single('file'), async function(req, res, n
 
 
 router.get('/bin_use', ifNotLoggedin, async(req, res) => {
-    const project = await Project.findByIdAndUpdate(req.query.project, { usecode: req.query.bin })
-
+    const project = await Project.findByIdAndUpdate(req.query.project, { usecode: req.query.bin, versionname: req.query.versionname })
     const bin = await Bin.findOneAndUpdate({
         project_id: req.query.project,
         status: "use"
     }, { status: "" })
-
     const binUse = await Bin.findByIdAndUpdate(req.query.bin, { status: "use" })
-
     res.redirect('/')
 });
 
