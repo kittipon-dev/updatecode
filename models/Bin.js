@@ -8,6 +8,7 @@ const binSchema = new Schema({
     description: String,
     filename: String,
     date: String,
+    size: String,
     status: String
 });
 

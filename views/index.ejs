@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>User profile with friends and chat - Bootdey.com</title>
+    <title>OTA Manager Online</title>
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +18,6 @@
         let bin = JSON.parse('<%-JSON.stringify(bin)%>')
         let user = JSON.parse('<%-JSON.stringify(user)%>')
         bin.reverse()
-
 
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -43,13 +43,17 @@
                                                             ${element.date}
                                                         </td>
                                                         <td>
-                                                            ${element.status=="use"?'<i class="fa fa-check-circle"></i>':''}
+                                                            ${element.filename}
+                                                        </td>
+                                                        <td>
+                                                            ${element.status == "use" ? '<i class="fa fa-check-circle "></i>' : ''}
                                                         </td>
                                                         <td style="float: right;">
                                                             <div class="btn-group">
                                                                 <button type="button" class="dropdown-toggle shadow-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"aria-hidden="true"></i></button>
                                                                 <ul class="dropdown-menu w-100 dropdown-menu-right">
-                                                                    <li><a class="nav-link" href="/bin_use?bin=${element._id}&project=${element.project_id}&versionname=${element.vername}">Use</a></li>
+                                                                    <li><a class="nav-link" href="/bin_use?bin=${element._id}&project=${element.project_id}&versionname=${element.vername}&filename=${element.filename}&size=${element.size}">Use</a></li>
+                                                                    <li><a class="nav-link" href="/code_bin/${element.filename}">Download</a></li>
                                                                     <li><a class="nav-link" href="/bin_del?bin=${element._id}">Delete</a></li>
                                                                 </ul>
                                                             </div>
@@ -58,24 +62,59 @@
                         `
             return widget
         }
-
-
-        //console.log(list(bin[0]));
     </script>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" src="/icon.png" width="50px">
+                </a>
+                <a class="navbar-brand" href="#">OTA.NEWARE.DEV</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="https://youtu.be/iAT9MgsqUIA" target="_blank"> Guides </a></li>
+                    <li><a href="https://github.com/kittipon-neware/ota_update_manager" target="_blank"> Get Library </a></li>
+                    <li><a href="https://neware.dev" target="_blank"> Contact </a></li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                </ul>
+                 
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 
 </head>
 
 <body>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
     <div class="container bootstrap snippets bootdeys">
         <div class="row" id="user-profile">
             <div class="col-lg-3 col-md-4 col-sm-4">
                 <div class="main-box clearfix">
-                    <h2>Kittipon</h2>
+                    <h2>
+                        <%= user.username %>
+                    </h2>
+                    <!--
                     <div class="profile-status">
-                        <i class="fa fa-check-circle"></i> Premium
+                        <i class="fa fa-check-circle"></i> Premium 
                     </div>
-
+                    
 
                     <div class="profile-details">
                         <ul class="fa-ul">
@@ -84,19 +123,16 @@
                         </ul>
                     </div>
 
+                    -->
 
-                    <div class="profile-message-btn center-block text-center">
-                        <a href="/logout" class="btn btn-danger">
-                            <i class="fa fa-sign-out"></i> Logout
-                        </a>
-                    </div>
                 </div>
             </div>
 
             <div class="col-lg-9 col-md-8 col-sm-8">
                 <div class="main-box clearfix">
                     <div class="profile-header">
-                        <button type="button" class="btn btn-primary edit-profile" data-toggle="modal" data-target="#exampleModalCenter2">
+                        <button type="button" class="btn btn-primary edit-profile" data-toggle="modal"
+                            data-target="#exampleModalCenter2">
                             <i class="fa fa-pencil-square fa-lg"></i> Add Project
                         </button>
                     </div>
@@ -115,12 +151,11 @@
                                 for (let index = 0; index < project.length; index++) {
                                     const e = project[index];
                                     document.write(`
-                                        <li class="${getCookie('a')==e._id?'active':'' } a"><a href="#${e._id}" data-toggle="tab" onclick="saveA('${e._id}') ">${e.projectname}</a></li>
+                                        <li class="${getCookie('a') == e._id ? 'active' : ''} a"><a href="#${e._id}" data-toggle="tab" onclick="saveA('${e._id}') ">${e.projectname}</a></li>
                                     `)
                                 }
                             </script>
                         </ul>
-
 
 
                         <div class="tab-content">
@@ -128,10 +163,19 @@
                                 for (let index = 0; index < project.length; index++) {
                                     const e = project[index];
                                     document.write(`
-                                    <div class="tab-pane fade in ${getCookie('a')==e._id?'active':'' } " id="${e._id}">
+                                    <div class="tab-pane fade in ${getCookie('a') == e._id ? 'active' : ''} " id="${e._id}">
                                         <div class="table-responsive" style="min-height: 300px;">
                                             <div class=" profile-user-info">
                                                 <div class="col-sm-8">
+                                                    <br>
+                                                    <div class="profile-user-details clearfix">
+                                                        <div class="profile-user-details-label">
+                                                            hostname
+                                                        </div>
+                                                        <div class="profile-user-details-value">
+                                                            http://34.87.6.251
+                                                        </div>
+                                                    </div>
                                                     <div class="profile-user-details clearfix">
                                                         <div class="profile-user-details-label">
                                                             token
@@ -140,6 +184,8 @@
                                                             ${e._id}
                                                         </div>
                                                     </div>
+                                                    <br>
+                                                    <!--
                                                     <div class="profile-user-details clearfix">
                                                         <div class="profile-user-details-label">
                                                             ????
@@ -156,13 +202,23 @@
                                                             2
                                                         </div>
                                                     </div>
+                                                    -->
                                                 </div>
                                             </div>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="${e._id}">
                                                 Add Code
                                             </button>
                                             <table class="table">
-                                                <tbody id="table_${e._id}"></tbody>
+                                                <tbody id="table_${e._id}">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>version</th>
+                                                        <th>description</th>
+                                                        <th>date</th>
+                                                        <th>filename</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>`)
@@ -188,7 +244,8 @@
 
 
     <!-- Modal Add Code BIN-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -200,12 +257,15 @@
                             <input type="hidden" id="projectID" name="project_id">
                             <div class="input-group mb-3">
                                 <span class="input-group-text"> </span>
-                                <input type="text" class="form-control" name="vername" placeholder="ESP ==> String _version = ?" required>
+                                <input type="text" class="form-control" name="vername"
+                                    placeholder="ESP ==> String _version = ?" required>
                             </div>
                             <br>
-                            <textarea class="form-control" rows="3" placeholder="Description" name="description" required></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Description" name="description"
+                                required></textarea>
                             <br>
-                            <input type="file" style="float: left; width: 100%;" class="custom-file-input" name="file" id="file" required>
+                            <input type="file" style="float: left; width: 100%;" class="custom-file-input" name="file"
+                                id="file" required>
                             <div style="float: right;">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Upload</button>
@@ -218,7 +278,7 @@
     </div>
 
     <script>
-        $('#exampleModal').on('shown.bs.modal', function(e) {
+        $('#exampleModal').on('shown.bs.modal', function (e) {
             let button = $(e.relatedTarget)
             let recipient = button.data('whatever')
             const projectID = document.getElementById('projectID')
@@ -229,14 +289,16 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
                         <form action="/newproject" method="post">
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="projectname" placeholder="Name Project" width="">
+                                <input type="text" class="form-control" name="projectname" placeholder="Name Project"
+                                    required>
                             </div>
                             <div class="col-sm-4">
                                 <div>
